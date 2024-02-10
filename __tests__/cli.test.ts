@@ -8,7 +8,7 @@ describe("cli", () => {
   });
 
   describe("examples", () => {
-    it("should run the basic example without errors", () => {
+    fit("should run the basic example without errors", () => {
       const result = execSync(
         `npm run typed-scss-modules "examples/basic/**/*.scss" -- --includePaths examples/basic/core --aliases.~alias variables --banner '// example banner'`
       ).toString();

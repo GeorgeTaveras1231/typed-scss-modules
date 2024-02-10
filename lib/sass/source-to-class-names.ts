@@ -1,4 +1,3 @@
-import * as proxy from "identity-obj-proxy";
 import postcss from "postcss";
 import PostcssModulesPlugin from "postcss-modules";
 
@@ -37,11 +36,11 @@ import PostcssModulesPlugin from "postcss-modules";
  * the way in which it is intended to be used, so broken imports
  * will not be surfaced by this tool.
  */
-class IdentityObjProxyLoader {
-  async fetch() {
-    return proxy;
-  }
-}
+// class IdentityObjProxyLoader {
+//   async fetch() {
+//     return proxy;
+//   }
+// }
 
 /**
  * Converts a CSS source string to a list of exports (class names, keyframes, etc.)
@@ -53,7 +52,7 @@ export const sourceToClassNames = async (
   let result: Record<string, string> = {};
   await postcss([
     PostcssModulesPlugin({
-      Loader: IdentityObjProxyLoader,
+      // Loader: IdentityObjProxyLoader,
       getJSON: (_, json) => {
         result = json;
       },
