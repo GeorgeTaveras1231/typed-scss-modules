@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { Exception as SassError } from "sass";
 import yargs from "yargs";
 import { alerts } from "./core";
 import { IMPLEMENTATIONS } from "./implementations";
@@ -146,7 +147,7 @@ const { _: patterns, ...rest } = yargs
   .parseSync();
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
-main(patterns[0] as string, { ...rest }).catch((error: Error) => {
+main(patterns[0] as string, { ...rest }).catch((error: SassError) => {
   alerts.error("Encountered an error while generating type definitions.");
   alerts.error(error);
   process.exitCode = 1;

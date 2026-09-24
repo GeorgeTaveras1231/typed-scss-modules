@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { SassError } from "node-sass";
+import { Exception as SassError } from "sass";
 
 export const LOG_LEVELS = ["verbose", "error", "info", "silent"] as const;
 export type LogLevel = (typeof LOG_LEVELS)[number];
@@ -33,14 +33,17 @@ const withLogLevelsRestriction =
     }
   };
 
-const normalizeErrorMessage = (error: string | Error) => {
+const normalizeErrorMessage = (error: string | SassError) => {
   if (error && error instanceof Error) {
     if ("file" in error) {
-      const { message, file, line, column } = error as SassError;
-      const location = file ? ` (${file}[${line}:${column}])` : "";
-      const wrappedError = new Error(`SASS Error ${location}\n${message}`, {
-        cause: error,
-      });
+      const { message, file, sassMessage, sassStack } = error;
+      const location = file ? ` (${file})` : "";
+      const wrappedError = new Error(
+        `SASS Error ${location}\n${message}\n${sassMessage}\n${sassStack}`,
+        {
+          cause: error,
+        }
+      );
 
       wrappedError.stack = chalk.red(wrappedError.stack);
 
@@ -56,7 +59,7 @@ const normalizeErrorMessage = (error: string | Error) => {
 };
 const error = withLogLevelsRestriction(
   ["verbose", "error", "info"],
-  (message: string | Error) => {
+  (message: string | SassError) => {
     console.warn(normalizeErrorMessage(message));
   }
 );

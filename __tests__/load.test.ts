@@ -138,7 +138,7 @@ describe("#mergeOptions", () => {
         },
         {
           nameFormat: ["param"],
-          implementation: "node-sass",
+          implementation: "sass-embedded",
           exportType: "named",
           exportTypeName: "Classnames",
           exportTypeInterface: "TheStyles",
@@ -200,7 +200,7 @@ describe("#mergeOptions", () => {
           aliases: {},
           aliasPrefixes: {},
           nameFormat: ["param"],
-          implementation: "node-sass",
+          implementation: "sass-embedded",
           exportType: "named",
           exportTypeName: "Classnames",
           exportTypeInterface: "TheStyles",

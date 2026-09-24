@@ -5,7 +5,10 @@ describeAllImplementations((implementation) => {
   describe("fileToClassNames", () => {
     it("converts a file path to an array of class names (default camel cased)", async () => {
       const result = await fileToClassNames(
-        `${__dirname}/../dummy-styles/complex.scss`
+        `${__dirname}/../dummy-styles/complex.scss`,
+        {
+          implementation,
+        }
       );
 
       expect(result).toEqual([
