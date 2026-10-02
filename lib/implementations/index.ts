@@ -1,5 +1,3 @@
-import sass from "sass";
-import * as embedSass from "sass-embedded";
 /**
  * A list of all possible SASS package implementations that can be used to
  * perform the compilation and parsing of the SASS files. The expectation is
@@ -9,7 +7,7 @@ import * as embedSass from "sass-embedded";
 export const IMPLEMENTATIONS = ["sass-embedded", "sass"] as const;
 export type Implementations = (typeof IMPLEMENTATIONS)[number];
 
-type Implementation = typeof embedSass | typeof sass;
+type Implementation = typeof import("sass-embedded") | typeof import("sass");
 
 /**
  * Determine which default implementation to use by checking which packages
@@ -46,9 +44,9 @@ export const getImplementation = (
 ): Implementation => {
   if (implementation === "sass") {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return sass;
+    return require("sass");
   } else {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return embedSass;
+    return require("sass-embedded");
   }
 };
